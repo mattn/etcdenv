@@ -12,3 +12,13 @@ env command integrated with etcd server
 
     $ etcd -key=/app/ ruby web.rb
 
+### Shebang
+
+    $ cat myapp.sh
+    #!/path/to/etcdenv -key=/myapp ./myapp.sh
+
+### Foreman/Goreman
+
+    $ cat Procfile
+    web: etcdenv -key=/myapp/ ruby web.rb
+
