@@ -1,0 +1,14 @@
+# etcdenv
+
+env command integrated with etcd server
+
+## Usage
+
+    $ curl http://127.0.0.1:4001/v1/keys/app/db -d value="newdb"
+    $ curl http://127.0.0.1:4001/v1/keys/app/cache -d value="new cache"
+
+    $ curl http://localhost:4001/v1/keys/app
+    [{"action":"GET","key":"/app/db","value":"newdb","index":4},{"action":"GET","key":"/app/cache","value":"new cache","index":4}]
+
+    $ etcd -key=/app/ ruby web.rb
+
