@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-var url = flag.String("url", "", "etcd URL")
+var key = flag.String("key", "", "etcd key")
 
 func main() {
 	flag.Parse()
-	if flag.NArg() == 0 || *url == "" {
-		fmt.Fprintln(os.Stderr, "etcdenv [-url=url] [...]")
+	if flag.NArg() == 0 || *key == "" {
+		fmt.Fprintln(os.Stderr, "etcdenv [-key=key] [...]")
 		flag.PrintDefaults()
 		os.Exit(1)
 	}
 	client := etcd.NewClient()
-	res, err := client.Get(*url)
+	res, err := client.Get(*key)
 	if err == nil {
 		for _, n := range res {
 			key := strings.Split(n.Key, "/")
