@@ -1,6 +1,8 @@
 # etcdenv
 
-env command integrated with etcd server
+    etcd + env = awesome!
+
+env command integrated with [etcd](http://coreos.com/docs/etcd/) server
 
 ## Usage
 
@@ -10,7 +12,11 @@ env command integrated with etcd server
     $ curl http://localhost:4001/v1/keys/app
     [{"action":"GET","key":"/app/db","value":"newdb","index":4},{"action":"GET","key":"/app/cache","value":"new cache","index":4}]
 
-    $ etcd -key=/app/ ruby web.rb
+    $ etcdenv -key=/app/
+    DB=newdb
+    CACHE=new cache
+
+    $ etcdenv -key=/app/ ruby web.rb
 
 ### Shebang
 
