@@ -13,7 +13,7 @@ var key = flag.String("key", "", "etcd key")
 
 func main() {
 	flag.Parse()
-	if flag.NArg() > 0 && *key == "" {
+	if *key == "" {
 		fmt.Fprintln(os.Stderr, "etcdenv [-key=key] [...]")
 		flag.PrintDefaults()
 		os.Exit(1)
