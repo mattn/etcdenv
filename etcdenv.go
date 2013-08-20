@@ -24,6 +24,9 @@ func main() {
 	if flag.NArg() > 0 {
 		if err == nil {
 			for _, n := range res {
+				if strings.Contains(n.Value, "\n") {
+					continue
+				}
 				key := strings.Split(n.Key, "/")
 				k, v := strings.ToUpper(key[len(key)-1]), n.Value
 				fmt.Println("creating env var:", k)
@@ -41,6 +44,9 @@ func main() {
 	} else {
 		if err == nil {
 			for _, n := range res {
+				if strings.Contains(n.Value, "\n") {
+					continue
+				}
 				key := strings.Split(n.Key, "/")
 				k, v := strings.ToUpper(key[len(key)-1]), n.Value
 				fmt.Printf("%s=%s\n", k, v)
