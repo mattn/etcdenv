@@ -43,7 +43,7 @@ func main() {
 			for _, n := range res {
 				key := strings.Split(n.Key, "/")
 				k, v := strings.ToUpper(key[len(key)-1]), n.Value
-				fmt.Println("%s=%s", k, v)
+				fmt.Printf("%s=%s\n", k, v)
 			}
 		} else {
 			fmt.Fprintln(os.Stderr, err)
