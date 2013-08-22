@@ -19,6 +19,7 @@ func main() {
 		flag.PrintDefaults()
 		os.Exit(1)
 	}
+
 	client := etcd.NewClient()
 	res, err := client.Get(*key)
 	if err != nil {
@@ -32,6 +33,7 @@ func main() {
 		k, v := strings.ToUpper(key[len(key)-1]), n.Value
 		envs = append(envs, k+"="+v)
 	}
+
 	if flag.NArg() == 0 {
 		for _, env := range envs {
 			line := fmt.Sprintf("%q", env)
@@ -39,6 +41,7 @@ func main() {
 		}
 		os.Exit(0)
 	}
+
 	cmd := exec.Command(flag.Args()[0], flag.Args()[1:]...)
 	cmd.Env = envs
 	cmd.Stderr = os.Stderr
