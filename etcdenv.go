@@ -10,10 +10,19 @@ import (
 	"syscall"
 )
 
+var sep = flag.Bool("s", false, "separate arguments with spaces")
 var key = flag.String("key", "", "etcd key")
 
 func main() {
+	if len(os.Args) > 1 && strings.HasPrefix(os.Args[1], "-s ") {
+		args := []string{}
+		for _, arg := range os.Args {
+			args = append(args, strings.Split(arg, " ")...)
+		}
+		os.Args = args
+	}
 	flag.Parse()
+
 	if *key == "" {
 		fmt.Fprintln(os.Stderr, "etcdenv [-key=key] [...]")
 		flag.PrintDefaults()
@@ -47,6 +56,10 @@ func main() {
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
 	cmd.Stdin = os.Stdin
-	cmd.Run()
+	err = cmd.Run()
+	if cmd.Process == nil {
+		fmt.Fprintf(os.Stderr, "etcdenv: %s\n", err)
+		os.Exit(1)
+	}
 	os.Exit(cmd.ProcessState.Sys().(syscall.WaitStatus).ExitStatus())
 }
