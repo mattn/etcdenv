@@ -44,6 +44,6 @@ func main() {
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
 	cmd.Stdin = os.Stdin
-	err = cmd.Run()
+	cmd.Run()
 	os.Exit(cmd.ProcessState.Sys().(syscall.WaitStatus).ExitStatus())
 }
