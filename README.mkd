@@ -23,6 +23,11 @@ env command integrated with [etcd](http://coreos.com/docs/etcd/) server
     $ cat myapp.sh
     #!/path/to/etcdenv -key=/myapp ./myapp.sh
 
+If you are using OSs which the shell doesn't parse arguments separated with spaces, try to use `-s` option.
+
+    $ cat myapp.sh
+    #!/path/to/etcdenv -s -key=/myapp ./myapp.sh
+
 ### Foreman/Goreman
 
     $ cat Procfile
