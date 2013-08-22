@@ -21,7 +21,7 @@ func main() {
 	client := etcd.NewClient()
 	res, err := client.Get(*key)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "etcdenv:", err)
+		fmt.Fprintf(os.Stderr, "etcdenv: %s\n", err)
 		os.Exit(1)
 	}
 
