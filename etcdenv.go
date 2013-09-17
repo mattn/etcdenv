@@ -36,7 +36,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	envs := []string{}
+	envs := os.Environ()
 	for _, n := range res {
 		key := strings.Split(n.Key, "/")
 		k, v := strings.ToUpper(key[len(key)-1]), n.Value
