@@ -29,15 +29,15 @@ func main() {
 		os.Exit(1)
 	}
 
-	client := etcd.NewClient()
-	res, err := client.Get(*key)
+	client := etcd.NewClient(nil)
+	res, err := client.Get(*key, true, true)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "etcdenv: %s\n", err)
 		os.Exit(1)
 	}
 
 	envs := os.Environ()
-	for _, n := range res {
+	for _, n := range res.Node.Nodes {
 		key := strings.Split(n.Key, "/")
 		k, v := strings.ToUpper(key[len(key)-1]), n.Value
 		envs = append(envs, k+"="+v)
