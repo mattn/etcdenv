@@ -12,6 +12,8 @@ import (
 
 var sep = flag.Bool("s", false, "separate arguments with spaces")
 var key = flag.String("key", "", "etcd key")
+var host = flag.String("host", "", "etcd host")
+var hosts []string
 
 func main() {
 	if len(os.Args) > 1 && strings.HasPrefix(os.Args[1], "-s ") {
@@ -24,12 +26,21 @@ func main() {
 	flag.Parse()
 
 	if *key == "" {
+		*key = os.Getenv("ETCDENV_KEY")
+	}
+	if *key == "" {
 		fmt.Fprintln(os.Stderr, "etcdenv [-key=key] [...]")
 		flag.PrintDefaults()
 		os.Exit(1)
 	}
 
-	client := etcd.NewClient(nil)
+	if *host == "" {
+		*host = os.Getenv("ETCDENV_HOST")
+	}
+	if *host != "" {
+		hosts = []string{*host}
+	}
+	client := etcd.NewClient(hosts)
 	res, err := client.Get(*key, true, true)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "etcdenv: %s\n", err)
