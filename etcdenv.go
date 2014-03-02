@@ -13,7 +13,7 @@ import (
 var sep = flag.Bool("s", false, "separate arguments with spaces")
 var key = flag.String("key", "", "etcd key")
 var host = flag.String("host", "", "etcd host")
-var hosts = []string{}
+var hosts []string
 
 func main() {
 	if len(os.Args) > 1 && strings.HasPrefix(os.Args[1], "-s ") {
