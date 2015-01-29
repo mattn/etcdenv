@@ -28,12 +28,6 @@ func main() {
 	if *key == "" {
 		*key = os.Getenv("ETCDENV_KEY")
 	}
-	if *key == "" {
-		fmt.Fprintln(os.Stderr, "etcdenv [-key=key] [...]")
-		flag.PrintDefaults()
-		os.Exit(1)
-	}
-
 	if *host == "" {
 		*host = os.Getenv("ETCDENV_HOST")
 	}
@@ -49,9 +43,11 @@ func main() {
 
 	envs := os.Environ()
 	for _, n := range res.Node.Nodes {
-		key := strings.Split(n.Key, "/")
-		k, v := strings.ToUpper(key[len(key)-1]), n.Value
-		envs = append(envs, k+"="+v)
+		if !n.Dir {
+			key := strings.Split(n.Key, "/")
+			k, v := strings.ToUpper(key[len(key)-1]), n.Value
+			envs = append(envs, k+"="+v)
+		}
 	}
 
 	if flag.NArg() == 0 {
