@@ -18,9 +18,9 @@ var host = flag.String("host", "", "etcd host")
 var hosts []string
 var envs []string
 
-func stringInSlice(s string, list []string) int {
+func prefixInSlice(list []string, s string) int {
 	for i, entry := range list {
-		if strings.Contains(entry, s) {
+		if strings.HasPrefix(entry, s) {
 			return i
 		}
 	}
@@ -31,8 +31,8 @@ func handleNode(n *etcd.Node) {
 	if !n.Dir {
 		key := strings.Split(n.Key, "/")
 		k, v := strings.ToUpper(key[len(key)-1]), n.Value
-		// if key already exists and in recursive mode, append with comma
-		if i := stringInSlice(k+"=", envs); i != -1 && *rec {
+		// if k already exists and in recursive mode, append v with comma
+		if i := prefixInSlice(envs, k+"="); i != -1 && *rec {
 			envs[i] = fmt.Sprint(envs[i], ",", v)
 		} else {
 			envs = append(envs, k+"="+v)
