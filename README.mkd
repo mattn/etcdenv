@@ -8,6 +8,7 @@ env command integrated with [etcd](http://coreos.com/docs/etcd/) server
 
     $ curl http://127.0.0.1:4001/v1/keys/app/db -d value="newdb"
     $ curl http://127.0.0.1:4001/v1/keys/app/cache -d value="new cache"
+    $ curl http://127.0.0.1:4001/v1/keys/app2/db -d value="otherdb"
 
     $ curl http://localhost:4001/v1/keys/app
     [{"action":"GET","key":"/app/db","value":"newdb","index":4},{"action":"GET","key":"/app/cache","value":"new cache","index":4}]
@@ -17,6 +18,10 @@ env command integrated with [etcd](http://coreos.com/docs/etcd/) server
     CACHE=new cache
 
     $ etcdenv -key=/app/ ruby web.rb
+
+    $ etcdenv -key=/ -r
+    DB=newdb,otherdb
+    CACHE=new cache
 
 ### Shebang
 
@@ -32,4 +37,3 @@ If you are using OSs which the shell doesn't parse arguments separated with spac
 
     $ cat Procfile
     web: etcdenv -key=/myapp/ ruby web.rb
-
