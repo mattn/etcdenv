@@ -37,3 +37,7 @@ If you are using OSs which the shell doesn't parse arguments separated with spac
 
     $ cat Procfile
     web: etcdenv -key=/myapp/ ruby web.rb
+
+## License
+
+MIT: http://mattn.mit-license.org/2013
